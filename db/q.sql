@@ -12,3 +12,5 @@ FROM role r
 JOIN department d
 ON department_id = d.id;
 
+SELECT MAX(id) FROM department;   
+SELECT nextval(pg_get_serial_sequence(department, id));
