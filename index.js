@@ -163,7 +163,6 @@ async function updateEmployeeRole() {
                 empList.push(rows[i].name)
             }
         }
-        console.log(empList)
     })    
 
     let roleList = []
@@ -199,6 +198,12 @@ async function updateEmployeeRole() {
 
     const response5 = await inquirer.prompt([
         {
+            type: "confirmation",
+            message: "Are you sure (Y/N)?",
+            name: "confirmation"
+            
+        },
+        {
             type: "list",
             message: "Which employee's role do you want to update?",
             name: "emp",
@@ -213,9 +218,10 @@ async function updateEmployeeRole() {
     ]).then((data)=> {
         pool.query(`UPDATE employee SET role_id=$1 WHERE id=$2`, [roleId[data.newRole],empId[data.emp]], (err, data) => {
             if (err) {throw err}
-            console.log(`Role was updated for ${data.emp} to ${data.newRole}`)
-            initialMenu()
+            
         })
+        console.log(`Role was updated for ${data.emp} to ${data.newRole}`)
+        initialMenu()
     })
  }
 
@@ -311,9 +317,10 @@ async function addDepartment() {
             if (err) {
                 throw err
             } 
-            console.log(`Added ${data.deparment} to the database.`)
-            initialMenu()
+            
         })
+        console.log(`Added ${data.deparment} to the database.`)
+        initialMenu()
     })
  }
 
